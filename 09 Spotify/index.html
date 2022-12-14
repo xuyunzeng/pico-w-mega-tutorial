@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pico W</title>
+    </head>
+      <body>
+        <h1>Pico W Ultrasonic Distance</h1>
+        <h2 id="ultrasonic"></h2>
+        <script>
+            //instead of hardcoding, use address which browser accessed Pico W.
+            const PicoAddress = window.location.href
+
+            const getData = async () => {
+                //there is a slash at the end of PicoAddress, so don't use "/data". use "data"
+                const data = await fetch(`${PicoAddress}data`);
+                //response is just a string, so use data.text() to decode the Response's body
+                const distance = await data.text();
+                //target ultrasonic id and change its inner HTML
+                ultrasonic.innerHTML = `${distance} cm`;
+                //run getData() again.
+                getData()
+            };
+
+            getData();
+           
+        </script>
+</html>
